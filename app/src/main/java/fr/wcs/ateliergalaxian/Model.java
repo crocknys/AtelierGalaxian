@@ -8,9 +8,9 @@ public class Model {
 
     String joueur;
     String mdp;
-    String score;
+    int score;
 
-    public Model (String joueur, String mdp, String score) {
+    public Model (String joueur, String mdp, int score) {
         this.joueur = joueur;
         this.mdp = mdp;
         this.score = score;
@@ -37,11 +37,11 @@ public class Model {
         this.mdp = mdp;
     }
 
-    public String getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(int score) {
         this.score = score;
     }
 

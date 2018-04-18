@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("Joueur");
-                Model joueur = new Model(nom, mdp, score);
+                Model joueur = new Model(nom, mdp, Integer.parseInt(score));
                 myRef.push().setValue(joueur);
 
                 nomV.setText("");
@@ -53,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 scoreV.setText("");
                 scoreV.setHint(" Score ");
                 Toast.makeText(MainActivity.this, "Please enter new player", Toast.LENGTH_SHORT).show();
-
-
             }
         });
     }
@@ -65,20 +64,24 @@ public class MainActivity extends AppCompatActivity {
         studentRef.orderByChild("score").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ListView otherplayer = findViewById(R.id.other);
+
                 for (DataSnapshot ModelSnapshot : dataSnapshot.getChildren()){
 
                     Model player = ModelSnapshot.getValue(Model.class);
 
                 TextView bestPlayer = findViewById(R.id.bestPlayer);
-                ListView otherplayer = findViewById(R.id.other);
+
                 bestPlayer.setText("Best score is : " + player.getJoueur() +" = "+ player.getScore());
 
                 Model scorelist = new Model(player.getJoueur(), player.getMdp(), player.getScore());
-                listPlayer.add(scorelist);
 
-                    ScoreAdapter adapter = new ScoreAdapter(MainActivity.this, listPlayer);
-                    otherplayer.setAdapter(adapter);
+                    listPlayer.add(scorelist);
+
                 }
+                ScoreAdapter adapter = new ScoreAdapter(MainActivity.this, listPlayer);
+                otherplayer.setAdapter(adapter);
             }
 
             @Override

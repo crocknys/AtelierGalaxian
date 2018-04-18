@@ -35,7 +35,7 @@ public class ScoreAdapter extends ArrayAdapter<Model> {
         TextView score = convertView.findViewById(R.id.score);
 
         nom.setText(player.getJoueur());
-        score.setText(player.getScore());
+        score.setText(String.valueOf(player.getScore()));
 
         return convertView;
     }
