@@ -54,11 +54,14 @@ public class MainActivity extends AppCompatActivity {
                 scoreV.setText("");
                 scoreV.setHint(" Score ");
                 Toast.makeText(MainActivity.this, "Please enter new player", Toast.LENGTH_SHORT).show();
+                listPlayer.clear();
             }
         });
     }
 
+
     public void NourirList() {
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference studentRef = database.getReference("Joueur");
         studentRef.orderByChild("score").addValueEventListener(new ValueEventListener() {
